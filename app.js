@@ -1196,7 +1196,7 @@ function setRating(rating) {
     userRating = rating;
     const stars = document.querySelectorAll('#ratingStars i');
     stars.forEach((star, idx) => {
-        star.style.color = idx < rating ? '#ffaa00' : '#ccc';
+        star.style.color = idx < rating ? '#ffaa01' : '#ccc';
     });
 }
 
