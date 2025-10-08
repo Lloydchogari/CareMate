@@ -3,9 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediScan - AI Health Symptom Checker</title>
+    <meta name="description" content="CareMate - AI-powered health symptom analysis and medical guidance">
+    <title>CareMate - Your AI Health Assistant</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --blue-primary: #0066ff;
+            --blue-secondary: #0052cc;
+            --blue-light: #3385ff;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --success: #00cc66;
+            --warning: #ffaa00;
+            --danger: #ff3333;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f5f5f5;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #000000;
+            --text-secondary: #666666;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,11 +38,12 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         .bg-animation {
@@ -28,40 +54,43 @@
             height: 100%;
             z-index: 0;
             overflow: hidden;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(0, 102, 255, 0.08) 0%, transparent 50%);
         }
 
         .particle {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.1);
+            width: 4px;
+            height: 4px;
+            background: var(--blue-primary);
             border-radius: 50%;
-            animation: float 15s infinite;
+            opacity: 0.3;
+            animation: float 20s infinite;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
         }
 
         .container {
             position: relative;
             z-index: 1;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
 
+        /* Header */
         header {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 102, 255, 0.2);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 102, 255, 0.1);
             animation: slideDown 0.6s ease-out;
         }
 
@@ -70,41 +99,110 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+        }
+
         h1 {
-            color: white;
-            font-size: 3em;
-            text-align: center;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 2.5em;
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
         }
 
-        .subtitle {
-            color: rgba(255, 255, 255, 0.9);
-            text-align: center;
-            font-size: 1.2em;
-        }
-
-        .status-badge {
-            display: inline-block;
-            background: rgba(81, 207, 102, 0.3);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            margin-top: 10px;
+        .tagline {
+            color: var(--text-secondary);
             font-size: 0.9em;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 102, 255, 0.3);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle:hover {
+            background: var(--blue-primary);
+            border-color: var(--blue-primary);
+            transform: translateY(-2px);
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(0, 102, 255, 0.2);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--blue-primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+
+        /* Cards */
         .glass-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 25px;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
             animation: fadeInUp 0.8s ease-out;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         @keyframes fadeInUp {
@@ -112,12 +210,20 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .input-section h2 {
-            color: white;
-            margin-bottom: 20px;
+        .section-title {
             font-size: 1.8em;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
         }
 
+        .section-title i {
+            color: var(--blue-primary);
+        }
+
+        /* Input Section */
         .input-wrapper {
             position: relative;
             margin-bottom: 20px;
@@ -125,19 +231,19 @@
 
         #symptomInput {
             width: 100%;
-            padding: 18px 50px 18px 20px;
+            padding: 18px 120px 18px 20px;
             font-size: 1.1em;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(0, 102, 255, 0.3);
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
             transition: all 0.3s ease;
             outline: none;
         }
 
         #symptomInput:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
-            background: white;
+            border-color: var(--blue-primary);
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
         }
 
         .suggestions {
@@ -145,25 +251,27 @@
             top: 100%;
             left: 0;
             right: 0;
-            background: white;
-            border-radius: 10px;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 102, 255, 0.3);
+            border-radius: 12px;
             margin-top: 5px;
-            max-height: 200px;
+            max-height: 250px;
             overflow-y: auto;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
             display: none;
             z-index: 100;
         }
 
         .suggestion-item {
-            padding: 12px 20px;
+            padding: 15px 20px;
             cursor: pointer;
             transition: all 0.2s;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid rgba(0, 102, 255, 0.1);
+            color: var(--text-primary);
         }
 
         .suggestion-item:hover {
-            background: #667eea;
+            background: var(--blue-primary);
             color: white;
         }
 
@@ -172,38 +280,38 @@
             right: 10px;
             top: 50%;
             transform: translateY(-50%);
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-secondary));
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: bold;
+            font-weight: 600;
         }
 
         .add-btn:hover {
             transform: translateY(-50%) scale(1.05);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 20px rgba(0, 102, 255, 0.4);
         }
 
         .symptoms-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 25px;
-            min-height: 50px;
+            min-height: 60px;
         }
 
         .symptom-chip {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 10px 15px;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 102, 255, 0.3);
+            padding: 12px 18px;
             border-radius: 25px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             animation: chipIn 0.3s ease-out;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         @keyframes chipIn {
@@ -212,22 +320,23 @@
         }
 
         .symptom-chip span {
-            color: #333;
+            color: var(--text-primary);
             font-weight: 500;
         }
 
         .remove-chip {
-            background: #ff6b6b;
+            background: var(--danger);
             color: white;
             border: none;
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            font-size: 14px;
         }
 
         .remove-chip:hover {
@@ -236,40 +345,41 @@
 
         .analyze-btn {
             width: 100%;
-            padding: 18px;
+            padding: 20px;
             font-size: 1.3em;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-secondary));
             color: white;
             border: none;
-            border-radius: 15px;
+            border-radius: 12px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 102, 255, 0.3);
         }
 
         .analyze-btn:hover:not(:disabled) {
             transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 12px 35px rgba(0, 102, 255, 0.5);
         }
 
         .analyze-btn:disabled {
-            opacity: 0.6;
+            opacity: 0.5;
             cursor: not-allowed;
         }
 
+        /* Loading */
         .loading {
             display: none;
             text-align: center;
-            padding: 40px;
+            padding: 60px;
         }
 
         .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid white;
+            border: 4px solid rgba(0, 102, 255, 0.2);
+            border-top: 4px solid var(--blue-primary);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
         }
@@ -280,76 +390,105 @@
         }
 
         .loading p {
-            color: white;
+            color: var(--text-primary);
             font-size: 1.2em;
         }
 
+        /*Health-Tips*/
+        #healthTipText {
+            animation: blinkSize 5.4s infinite alternate;
+            transition: font-size 5.3s;
+            font-weight: 600;
+        }
+         .fade-in {
+            animation: fadeInTip 0.7s;
+        }
+
+        @keyframes blinkSize {
+            0% {
+                opacity: 1;
+                font-size: 1.1em;
+            }
+            50% {
+                opacity: 0.5;
+                font-size: 1.3em;
+            }
+            100% {
+                opacity: 1;
+                font-size: 1.15em;
+            }
+        }
+
+        /* Results */
         .results {
             display: none;
         }
 
         .result-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 25px;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            border-radius: 15px;
+            padding: 30px;
             margin-bottom: 20px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             animation: fadeInUp 0.5s ease-out;
-            border-left: 5px solid #667eea;
+            border-left: 4px solid var(--blue-primary);
         }
 
         .result-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
         }
 
         .disease-name {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #333;
+            font-size: 1.6em;
+            font-weight: 700;
+            color: var(--text-primary);
         }
 
         .confidence {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-light));
             color: white;
-            padding: 8px 15px;
+            padding: 10px 20px;
             border-radius: 20px;
-            font-weight: bold;
+            font-weight: 600;
         }
 
         .severity {
             display: inline-block;
-            padding: 5px 12px;
+            padding: 8px 16px;
             border-radius: 15px;
             font-size: 0.9em;
-            font-weight: bold;
+            font-weight: 600;
             margin-bottom: 15px;
         }
 
-        .severity-low { background: #51cf66; color: white; }
-        .severity-medium { background: #ffd43b; color: #333; }
-        .severity-high { background: #ff6b6b; color: white; }
+        .severity-low { background: var(--success); color: white; }
+        .severity-medium { background: var(--warning); color: white; }
+        .severity-high { background: var(--danger); color: white; }
 
         .description {
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.05em;
         }
 
         .advice-section {
-            background: rgba(102, 126, 234, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
+            background: rgba(0, 102, 255, 0.05);
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
         }
 
         .advice-section h4 {
-            color: #667eea;
-            margin-bottom: 10px;
+            color: var(--blue-primary);
+            margin-bottom: 15px;
+            font-size: 1.1em;
         }
 
         .advice-section ul {
@@ -358,158 +497,366 @@
         }
 
         .advice-section li {
-            color: #333;
-            padding: 5px 0;
-            padding-left: 25px;
+            color: var(--text-primary);
+            padding: 8px 0;
+            padding-left: 30px;
             position: relative;
+            line-height: 1.6;
         }
 
         .advice-section li:before {
             content: "✓";
             position: absolute;
             left: 0;
-            color: #51cf66;
+            color: var(--success);
             font-weight: bold;
+            font-size: 1.2em;
         }
 
-        .map-section {
-            margin-top: 30px;
-        }
-
-        .map-section h3 {
-            color: white;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-
+        /* Health Centers */
         .health-centers {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
         }
 
         .center-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 102, 255, 0.2);
             border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            padding: 25px;
+            transition: all 0.3s ease;
         }
 
         .center-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 102, 255, 0.2);
+            border-color: var(--blue-primary);
         }
 
         .center-name {
-            font-weight: bold;
+            font-weight: 700;
             font-size: 1.2em;
-            color: #333;
-            margin-bottom: 10px;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .center-name i {
+            color: var(--blue-primary);
         }
 
         .center-info {
-            color: #666;
-            margin-bottom: 8px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-size: 0.95em;
         }
 
         .center-info i {
-            color: #667eea;
+            color: var(--blue-primary);
+            width: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-card);
+            border-top: 1px solid rgba(0, 102, 255, 0.2);
+            margin-top: 60px;
+            padding: 40px 20px 20px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: var(--blue-primary);
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--blue-primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 102, 255, 0.3);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--blue-primary);
+            border-color: var(--blue-primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 102, 255, 0.2);
+            color: var(--text-secondary);
         }
 
         .disclaimer {
-            background: rgba(255, 107, 107, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 107, 107, 0.3);
+            background: rgba(255, 51, 51, 0.1);
+            border: 1px solid rgba(255, 51, 51, 0.3);
             border-radius: 15px;
-            padding: 20px;
+            padding: 25px;
             margin-top: 30px;
-            color: white;
             text-align: center;
         }
 
         .disclaimer i {
             font-size: 2em;
-            margin-bottom: 10px;
+            color: var(--danger);
+            margin-bottom: 15px;
         }
 
-        .stats-bar {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 20px;
+        .disclaimer p {
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
 
-        .stat-item {
-            text-align: center;
-            color: white;
-        }
-
-        .stat-number {
-            font-size: 2em;
-            font-weight: bold;
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 0.9em;
-            opacity: 0.9;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
             h1 { font-size: 2em; }
             .glass-card { padding: 25px; }
-            .health-centers { grid-template-columns: 1fr; }
+            .header-content { flex-direction: column; }
+            .stats-bar { gap: 20px; }
+            .footer-content { grid-template-columns: 1fr; }
         }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--blue-primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--blue-light);
+        }
+
+
+        /*CHATBOT*/
+
+          /* Chatbot Styles */
+    .chat-container {
+        background: var(--bg-secondary);
+        border-radius: 15px;
+        overflow: hidden;
+        max-height: 500px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        max-height: 400px;
+    }
+
+    .user-message, .bot-message {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+        animation: fadeInUp 0.3s ease-out;
+    }
+
+    .message-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--blue-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        flex-shrink: 0;
+    }
+
+    .user-message .message-avatar {
+        background: var(--success);
+    }
+
+    .message-content {
+        flex: 1;
+        background: var(--bg-card);
+        border: 1px solid rgba(0, 102, 255, 0.2);
+        border-radius: 12px;
+        padding: 15px;
+        color: var(--text-primary);
+        line-height: 1.6;
+    }
+
+    .message-content p {
+        margin: 0;
+    }
+
+    .typing-indicator {
+        display: flex;
+        gap: 5px;
+        padding: 5px 0;
+    }
+
+    .typing-indicator span {
+        width: 8px;
+        height: 8px;
+        background: var(--blue-primary);
+        border-radius: 50%;
+        animation: typing 1.4s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+        0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+        30% { opacity: 1; transform: translateY(-10px); }
+    }
+
+    .chat-input-wrapper {
+        display: flex;
+        gap: 10px;
+        padding: 15px;
+        background: var(--bg-card);
+        border-top: 1px solid rgba(0, 102, 255, 0.2);
+    }
+
+    #chatInput {
+        flex: 1;
+        padding: 12px 18px;
+        border: 2px solid rgba(0, 102, 255, 0.3);
+        border-radius: 10px;
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        outline: none;
+        transition: all 0.3s;
+    }
+
+    #chatInput:focus {
+        border-color: var(--blue-primary);
+    }
+
+    .chat-send-btn {
+        background: linear-gradient(135deg, var(--blue-primary), var(--blue-secondary));
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 1.1em;
+    }
+
+    .chat-send-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(0, 102, 255, 0.4);
+    }
+
     </style>
 </head>
-<body>
+<body data-theme="dark">
     <div class="bg-animation" id="bgAnimation"></div>
 
     <div class="container">
         <header>
-            <h1><i class="fas fa-heartbeat"></i> MediScan</h1>
-            <p class="subtitle">AI-Powered Health Symptom Analysis</p>
-            <div style="text-align: center;">
-                <span class="status-badge" id="statusBadge">
-                    <i class="fas fa-circle-notch fa-spin"></i> Loading Database...
-                </span>
-            </div>
-            <div class="stats-bar" id="statsBar" style="display: none;">
-                <div class="stat-item">
-                    <span class="stat-number" id="diseaseCount">0</span>
-                    <span class="stat-label">Diseases</span>
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="brand">
+                        <h1>CareMate</h1>
+                        <p class="tagline">Your AI-Powered Health Companion</p>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number" id="symptomCount">0</span>
-                    <span class="stat-label">Symptoms</span>
+                <div class="header-actions">
+                    <div class="stat-item" style="margin-right: 10px;">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Available</span>
+                    </div>
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                        <span id="themeText">Dark</span>
+                    </button>
+                </div>
+            </div>
+            <div class="stats-bar">
+                <!-- Place this inside <header> above the stats-bar or replace stats-bar -->
+                <div class="intro-message" style="margin-bottom: 20px; color: var(--text-secondary); font-size: 1.1em;">
+                    <i class="fas fa-info-circle" style="color: var(--blue-primary); margin-right: 8px;"></i>
+                    CareMate helps you understand your symptoms so you can communicate clearly with your doctor or pharmacist.
                 </div>
             </div>
         </header>
 
         <div class="glass-card">
-            <div class="input-section">
-                <h2><i class="fas fa-stethoscope"></i> Enter Your Symptoms</h2>
-                <div class="input-wrapper">
-                    <input 
-                        type="text" 
-                        id="symptomInput" 
-                        placeholder="Type a symptom (e.g., fever, headache, cough)..."
-                        autocomplete="off"
-                    >
-                    <div class="suggestions" id="suggestions"></div>
-                    <button class="add-btn" onclick="addSymptom()">
-                        <i class="fas fa-plus"></i> Add
-                    </button>
-                </div>
-                <div class="symptoms-container" id="symptomsContainer"></div>
-                <button class="analyze-btn" onclick="analyzeSymptoms()" id="analyzeBtn" disabled>
-                    <i class="fas fa-search"></i> Analyze Symptoms
+            <h2 class="section-title">
+                <i class="fas fa-stethoscope"></i>
+                Symptom Analysis
+            </h2>
+            <div class="input-wrapper">
+                <input 
+                    type="text" 
+                    id="symptomInput" 
+                    placeholder="Type a symptom (e.g., fever, headache, cough)..."
+                    autocomplete="off"
+                >
+                <div class="suggestions" id="suggestions"></div>
+                <button class="add-btn" onclick="addSymptom()">
+                    <i class="fas fa-plus"></i> Add
                 </button>
             </div>
+            <div class="symptoms-container" id="symptomsContainer"></div>
+            <button class="analyze-btn" onclick="analyzeSymptoms()" id="analyzeBtn">
+                <i class="fas fa-search"></i> Analyze Symptoms
+            </button>
         </div>
 
         <div class="glass-card loading" id="loading">
@@ -519,574 +866,135 @@
 
         <div class="results" id="results">
             <div class="glass-card">
-                <h2 style="color: white; margin-bottom: 25px;">
-                    <i class="fas fa-clipboard-list"></i> Analysis Results
+                <h2 class="section-title">
+                    <i class="fas fa-clipboard-list"></i>
+                    Analysis Results
                 </h2>
                 <div id="resultsContainer"></div>
             </div>
 
-            <div class="glass-card map-section">
-                <h3><i class="fas fa-hospital"></i> Nearby Health Centers</h3>
+            <div class="glass-card">
+                <h2 class="section-title">
+                    <i class="fas fa-hospital"></i>
+                    Nearby Health Centers
+                </h2>
                 <div class="health-centers" id="healthCenters"></div>
             </div>
         </div>
 
+        <!-- Health-Tip Section -->
+        <div class="glass-card" id="healthTipsCard" style="margin-bottom: 30px;">
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb"></i>
+                Health Tip
+            </h2>
+            <p id="healthTipText" style="font-size:1.1em; color:var(--text-secondary);"></p>
+        </div>
+
+        <!-- Health Chatbot Section -->
+        <div class="glass-card" id="chatbotSection">
+            <h2 class="section-title">
+                <i class="fas fa-comments"></i>
+                Health Assistant Chat
+            </h2>
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="bot-message">
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <p>👋 Hello! I'm your CareMate Health Assistant. I can help you with:</p>
+                            <ul style="margin: 10px 0; padding-left: 20px;">
+                                <li>Understanding health symptoms</li>
+                                <li>General health information</li>
+                                <li>Medication guidance</li>
+                                <li>Wellness tips</li>
+                            </ul>
+                            <p>How can I assist you today?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-wrapper">
+                    <input 
+                        type="text" 
+                        id="chatInput" 
+                        placeholder="Ask a health question..."
+                        autocomplete="off"
+                    >
+                    <button class="chat-send-btn" onclick="sendChatMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Place above the disclaimer in index.html -->
+            <div class="glass-card" id="feedbackSection" style="margin-bottom: 30px;">
+                <h2 class="section-title">
+                    <i class="fas fa-star"></i>
+                    Rate Your Experience
+                </h2>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                    <span>How would you rate CareMate?</span>
+                    <span id="ratingStars">
+                        <i class="fas fa-star" onclick="setRating(1)"></i>
+                        <i class="fas fa-star" onclick="setRating(2)"></i>
+                        <i class="fas fa-star" onclick="setRating(3)"></i>
+                        <i class="fas fa-star" onclick="setRating(4)"></i>
+                        <i class="fas fa-star" onclick="setRating(5)"></i>
+                    </span>
+                </div>
+                <textarea id="feedbackText" rows="3" style="width:100%; border-radius:8px; padding:10px;" placeholder="Share your feedback..."></textarea>
+                <button class="add-btn" style="margin-top:10px;" onclick="submitFeedback()">Submit</button>
+            </div>
+
         <div class="disclaimer">
             <i class="fas fa-exclamation-triangle"></i>
-            <p><strong>Medical Disclaimer:</strong> This tool provides general information only and should not replace professional medical advice. Always consult with a qualified healthcare provider for accurate diagnosis and treatment.</p>
+            <p><strong>Medical Disclaimer:</strong> CareMate provides general health information only and should not replace professional medical advice. Always consult with a qualified healthcare provider for accurate diagnosis and treatment. In case of emergency, call your local emergency services immediately.</p>
         </div>
     </div>
 
-    <script>
-        // Disease database (loaded from CSV or hardcoded)
-        let diseaseDatabase = {};
-        let allSymptoms = new Set();
-        let userSymptoms = [];
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CareMate</h3>
+                <p>CareMate is an AI-powered health assistant designed to help you understand your symptoms and make informed healthcare decisions. We provide preliminary health assessments based on your symptoms.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+                <a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+                <a href="terms.html"><i class="fas fa-file-contract"></i> Terms of Service</a>
+                <a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
+            </div> 
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-envelope"></i> support@caremate.health</p>
+                <p><i class="fas fa-phone"></i> +263 4 XXX XXXX</p>
+                <p><i class="fas fa-map-marker-alt"></i> Harare, Zimbabwe</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Emergency</h3>
+                <p>If you're experiencing a medical emergency, please call emergency services immediately.</p>
+                <p style="color: var(--danger); font-weight: bold; font-size: 1.3em;">📞 Emergency: 999</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CareMate. All rights reserved. | Built with care for better health</p>
+        </div>
+    </footer>
 
-        // Initialize app
-        async function initializeApp() {
-            // Comprehensive disease database
-            diseaseDatabase = {
-                "Fungal infection": {
-                    symptoms: ["itching", "skin rash", "nodal skin eruptions", "dischromic patches"],
-                    description: "A fungal infection occurs when fungi invade and overgrow on the skin, causing various skin conditions.",
-                    precautions: ["Bath twice daily", "Use antifungal powder", "Keep affected area dry", "Wear loose cotton clothes"]
-                },
-                "Allergy": {
-                    symptoms: ["continuous sneezing", "shivering", "chills", "watering from eyes"],
-                    description: "An allergic reaction occurs when your immune system reacts to a foreign substance.",
-                    precautions: ["Apply calamine lotion", "Cover area with bandage", "Use ice to reduce itching", "Consult doctor if severe"]
-                },
-                "GERD": {
-                    symptoms: ["stomach pain", "acidity", "ulcers on tongue", "vomiting", "cough", "chest pain"],
-                    description: "Gastroesophageal reflux disease (GERD) is a chronic digestive condition where stomach acid flows back into the esophagus.",
-                    precautions: ["Avoid fatty spicy food", "Avoid lying down after eating", "Maintain healthy weight", "Exercise regularly"]
-                },
-                "Chronic cholestasis": {
-                    symptoms: ["itching", "vomiting", "yellowish skin", "nausea", "loss of appetite", "abdominal pain"],
-                    description: "A condition where bile flow from the liver is reduced or stopped, leading to bile accumulation.",
-                    precautions: ["Cold bath for itching", "Drink plenty of water", "Eat vitamin K rich food", "Consult doctor immediately"]
-                },
-                "Drug Reaction": {
-                    symptoms: ["itching", "skin rash", "stomach pain", "burning micturition", "spotting urination"],
-                    description: "An adverse drug reaction is an unwanted or harmful reaction after taking medication.",
-                    precautions: ["Stop irritation medication", "Consult nearest hospital", "Stop taking drug", "Follow up with doctor"]
-                },
-                "Peptic ulcer disease": {
-                    symptoms: ["vomiting", "loss of appetite", "abdominal pain", "passage of gases", "internal itching"],
-                    description: "Open sores that develop on the inside lining of your stomach and the upper portion of your small intestine.",
-                    precautions: ["Avoid fatty spicy food", "Consume probiotic food", "Eliminate stress", "Limit alcohol intake"]
-                },
-                "AIDS": {
-                    symptoms: ["muscle wasting", "patches in throat", "high fever", "extra marital contacts"],
-                    description: "Acquired immunodeficiency syndrome (AIDS) is a chronic, potentially life-threatening condition caused by HIV.",
-                    precautions: ["Avoid open cuts", "Wear PPE if possible", "Consult doctor immediately", "Follow safe practices"]
-                },
-                "Diabetes": {
-                    symptoms: ["fatigue", "weight loss", "restlessness", "lethargy", "irregular sugar level", "blurred vision", "increased appetite", "polyuria"],
-                    description: "A chronic disease that affects how your body turns food into energy, characterized by high blood sugar levels.",
-                    precautions: ["Have balanced diet", "Exercise regularly", "Consult doctor frequently", "Monitor blood sugar levels"]
-                },
-                "Gastroenteritis": {
-                    symptoms: ["vomiting", "sunken eyes", "dehydration", "diarrhea"],
-                    description: "An intestinal infection marked by diarrhea, cramps, nausea, vomiting and fever.",
-                    precautions: ["Stop eating solid food for a while", "Try taking small sips of water", "Rest adequately", "Ease back into eating"]
-                },
-                "Bronchial Asthma": {
-                    symptoms: ["fatigue", "cough", "high fever", "breathlessness", "family history", "mucoid sputum"],
-                    description: "A condition in which your airways narrow and swell and may produce extra mucus, making breathing difficult.",
-                    precautions: ["Switch to loose clothing", "Take deep breaths", "Get away from trigger", "Seek immediate medical help"]
-                },
-                "Hypertension": {
-                    symptoms: ["headache", "chest pain", "dizziness", "loss of balance", "lack of concentration"],
-                    description: "High blood pressure is a common condition where the force of blood against artery walls is too high.",
-                    precautions: ["Meditation helps", "Reduce salt intake", "Exercise regularly", "Maintain healthy weight"]
-                },
-                "Migraine": {
-                    symptoms: ["acidity", "indigestion", "headache", "blurred vision", "excessive hunger", "stiff neck", "depression", "visual disturbances"],
-                    description: "A neurological condition characterized by intense, debilitating headaches often accompanied by nausea and sensitivity to light.",
-                    precautions: ["Meditate daily", "Reduce screen time", "Stay in quiet, dark room", "Avoid trigger foods"]
-                },
-                "Cervical spondylosis": {
-                    symptoms: ["back pain", "weakness in limbs", "neck pain", "dizziness", "loss of balance"],
-                    description: "Age-related wear and tear affecting the spinal disks in your neck, causing neck pain and stiffness.",
-                    precautions: ["Use heating pad or cold pack", "Exercise regularly", "Maintain proper posture", "Get physical therapy"]
-                },
-                "Paralysis (brain hemorrhage)": {
-                    symptoms: ["vomiting", "headache", "weakness of one body side", "altered sensorium"],
-                    description: "Loss of muscle function in part of your body, often caused by bleeding in or around the brain.",
-                    precautions: ["Massage affected area", "Get plenty of rest", "Exercise regularly", "Consult doctor immediately"]
-                },
-                "Jaundice": {
-                    symptoms: ["itching", "vomiting", "fatigue", "weight loss", "high fever", "yellowish skin", "dark urine", "abdominal pain"],
-                    description: "A condition where skin and whites of the eyes turn yellow due to high bilirubin levels.",
-                    precautions: ["Drink plenty of water", "Consume milk thistle", "Eat high fiber diet", "Avoid alcohol"]
-                },
-                "Malaria": {
-                    symptoms: ["chills", "vomiting", "high fever", "sweating", "headache", "nausea", "diarrhea", "muscle pain"],
-                    description: "A life-threatening disease caused by parasites transmitted through mosquito bites.",
-                    precautions: ["Consult nearest hospital", "Avoid oily food", "Drink plenty of fluids", "Take proper medication"]
-                },
-                "Chicken pox": {
-                    symptoms: ["itching", "skin rash", "fatigue", "lethargy", "high fever", "headache", "loss of appetite", "mild fever"],
-                    description: "A highly contagious viral infection causing an itchy, blister-like rash on the skin.",
-                    precautions: ["Use neem leaves in bathing", "Consume neem leaves", "Apply calamine lotion", "Keep fever in check"]
-                },
-                "Dengue": {
-                    symptoms: ["skin rash", "chills", "joint pain", "vomiting", "fatigue", "high fever", "headache", "nausea", "loss of appetite", "pain behind eyes", "back pain", "muscle pain", "red spots over body"],
-                    description: "A mosquito-borne viral infection causing flu-like illness and potentially lethal complications.",
-                    precautions: ["Drink plenty of water", "Take proper rest", "Eat papaya leaves", "Seek immediate medical attention"]
-                },
-                "Typhoid": {
-                    symptoms: ["chills", "vomiting", "fatigue", "high fever", "headache", "nausea", "constipation", "abdominal pain", "diarrhea", "toxic look", "belly pain"],
-                    description: "A bacterial infection that can lead to high fever, diarrhea, and vomiting, caused by contaminated food or water.",
-                    precautions: ["Eat high calorie diet", "Drink plenty of fluids", "Maintain good hygiene", "Take prescribed antibiotics"]
-                },
-                "Hepatitis A": {
-                    symptoms: ["joint pain", "vomiting", "yellowish skin", "dark urine", "nausea", "loss of appetite", "abdominal pain", "diarrhea", "mild fever", "yellowing of eyes", "muscle pain"],
-                    description: "A highly contagious liver infection caused by the hepatitis A virus, usually contracted from contaminated food or water.",
-                    precautions: ["Consult nearest hospital", "Wash hands thoroughly", "Avoid fatty foods", "Medication as prescribed"]
-                },
-                "Hepatitis B": {
-                    symptoms: ["itching", "fatigue", "lethargy", "yellowish skin", "dark urine", "loss of appetite", "abdominal pain", "yellow urine", "yellowing of eyes", "malaise", "receiving blood transfusion", "receiving unsterile injections"],
-                    description: "A serious liver infection caused by the hepatitis B virus that can become chronic and lead to liver failure.",
-                    precautions: ["Consult nearest hospital", "Vaccination is key", "Avoid alcohol", "Rest adequately"]
-                },
-                "Hepatitis C": {
-                    symptoms: ["fatigue", "yellowish skin", "nausea", "loss of appetite", "yellowing of eyes", "family history"],
-                    description: "A viral infection causing liver inflammation, sometimes leading to serious liver damage.",
-                    precautions: ["Consult nearest hospital", "Vaccination", "Eat healthy", "Avoid alcohol"]
-                },
-                "Hepatitis D": {
-                    symptoms: ["joint pain", "vomiting", "fatigue", "high fever", "yellowish skin", "dark urine", "nausea", "loss of appetite", "abdominal pain", "yellowing of eyes"],
-                    description: "A liver infection caused by the hepatitis D virus, which only occurs in people infected with hepatitis B.",
-                    precautions: ["Consult doctor", "Medication as prescribed", "Eat healthy", "Rest well"]
-                },
-                "Hepatitis E": {
-                    symptoms: ["joint pain", "vomiting", "fatigue", "high fever", "yellowish skin", "dark urine", "nausea", "loss of appetite", "abdominal pain", "yellowing of eyes", "acute liver failure", "coma", "stomach bleeding"],
-                    description: "A liver disease caused by the hepatitis E virus, usually spread through contaminated water.",
-                    precautions: ["Stop alcohol consumption", "Rest adequately", "Drink plenty of water", "Consult nearest hospital"]
-                },
-                "Alcoholic hepatitis": {
-                    symptoms: ["vomiting", "yellowish skin", "abdominal pain", "swelling of stomach", "distention of abdomen", "history of alcohol consumption", "fluid overload"],
-                    description: "Liver inflammation caused by drinking too much alcohol, potentially leading to liver damage.",
-                    precautions: ["Stop alcohol consumption", "Consult doctor", "Healthy diet", "Medication as advised"]
-                },
-                "Tuberculosis": {
-                    symptoms: ["chills", "vomiting", "fatigue", "weight loss", "cough", "high fever", "breathlessness", "sweating", "loss of appetite", "mild fever", "yellowing of eyes", "swelled lymph nodes", "malaise", "phlegm", "chest pain", "blood in sputum"],
-                    description: "A potentially serious infectious disease that mainly affects the lungs, spread through the air.",
-                    precautions: ["Cover mouth when coughing", "Consult doctor", "Medication for 6-9 months", "Avoid close contact"]
-                },
-                "Common Cold": {
-                    symptoms: ["continuous sneezing", "chills", "fatigue", "cough", "high fever", "headache", "swelled lymph nodes", "malaise", "phlegm", "throat irritation", "redness of eyes", "sinus pressure", "runny nose", "congestion", "chest pain", "loss of smell", "muscle pain"],
-                    description: "A viral infection of your upper respiratory tract, typically harmless but uncomfortable.",
-                    precautions: ["Drink plenty of fluids", "Get adequate rest", "Gargle with warm salt water", "Take vitamin C"]
-                },
-                "Pneumonia": {
-                    symptoms: ["chills", "fatigue", "cough", "high fever", "breathlessness", "sweating", "malaise", "phlegm", "chest pain", "fast heart rate", "rusty sputum"],
-                    description: "An infection that inflames air sacs in one or both lungs, which may fill with fluid.",
-                    precautions: ["Consult doctor", "Medication as prescribed", "Rest adequately", "Avoid smoking"]
-                },
-                "Dimorphic hemorrhoids (piles)": {
-                    symptoms: ["constipation", "pain during bowel movements", "pain in anal region", "bloody stool", "irritation in anus"],
-                    description: "Swollen veins in the lowest part of the rectum and anus, causing discomfort and bleeding.",
-                    precautions: ["Avoid fatty spicy food", "Consume more fiber", "Drink plenty of water", "Exercise regularly"]
-                },
-                "Heart attack": {
-                    symptoms: ["vomiting", "breathlessness", "sweating", "chest pain"],
-                    description: "A medical emergency where blood flow to the heart is blocked, potentially damaging heart muscle.",
-                    precautions: ["Call ambulance immediately", "Chew aspirin if available", "Rest and stay calm", "Avoid physical exertion"]
-                },
-                "Varicose veins": {
-                    symptoms: ["fatigue", "cramps", "bruising", "obesity", "swollen legs", "swollen blood vessels", "prominent veins on calf"],
-                    description: "Enlarged, twisted veins that can be seen just under the surface of the skin, usually in the legs.",
-                    precautions: ["Lie down flat and raise legs", "Use compression stockings", "Exercise regularly", "Avoid standing for long periods"]
-                },
-                "Hypothyroidism": {
-                    symptoms: ["fatigue", "weight gain", "cold hands and feet", "mood swings", "lethargy", "dizziness", "puffy face and eyes", "enlarged thyroid", "brittle nails", "swollen extremities", "depression", "irritability", "abnormal menstruation"],
-                    description: "A condition where the thyroid gland doesn't produce enough thyroid hormones, slowing metabolism.",
-                    precautions: ["Reduce stress", "Exercise regularly", "Eat healthy diet", "Take thyroid medication as prescribed"]
-                },
-                "Hyperthyroidism": {
-                    symptoms: ["fatigue", "mood swings", "weight loss", "restlessness", "sweating", "diarrhea", "fast heart rate", "excessive hunger", "muscle weakness", "irritability", "enlarged thyroid", "swollen extremities", "abnormal menstruation"],
-                    description: "A condition where the thyroid gland produces too much thyroid hormone, speeding up metabolism.",
-                    precautions: ["Eat healthy", "Massage affected area", "Medication as prescribed", "Radioactive iodine treatment if needed"]
-                },
-                "Hypoglycemia": {
-                    symptoms: ["vomiting", "fatigue", "anxiety", "sweating", "headache", "nausea", "blurred vision", "fast heart rate", "slurred speech", "palpitations"],
-                    description: "A condition characterized by abnormally low blood sugar levels, common in diabetes treatment.",
-                    precautions: ["Consume sugar or candy immediately", "Drink fruit juice", "Eat regular meals", "Monitor blood sugar levels"]
-                },
-                "Osteoarthritis": {
-                    symptoms: ["joint pain", "neck pain", "knee pain", "hip joint pain", "swelling joints", "painful walking"],
-                    description: "The most common form of arthritis, occurring when protective cartilage cushioning bones wears down over time.",
-                    precautions: ["Massage affected area", "Exercise regularly", "Use hot and cold therapy", "Maintain healthy weight"]
-                },
-                "Arthritis": {
-                    symptoms: ["muscle weakness", "stiff neck", "swelling joints", "movement stiffness", "painful walking"],
-                    description: "Inflammation of one or more joints, causing pain and stiffness that worsens with age.",
-                    precautions: ["Exercise regularly", "Use hot and cold therapy", "Maintain healthy weight", "Medication as prescribed"]
-                },
-                "(vertigo) Paroxysmal Positional Vertigo": {
-                    symptoms: ["vomiting", "headache", "nausea", "spinning movements", "loss of balance", "unsteadiness"],
-                    description: "A condition causing brief episodes of mild to intense dizziness, triggered by changes in head position.",
-                    precautions: ["Lie down in quiet room", "Avoid sudden movements", "Stay hydrated", "Consult doctor"]
-                },
-                "Acne": {
-                    symptoms: ["skin rash", "pus filled pimples", "blackheads", "scurring"],
-                    description: "A skin condition occurring when hair follicles become plugged with oil and dead skin cells.",
-                    precautions: ["Bath twice daily", "Avoid fatty foods", "Drink plenty of water", "Use oil-free cosmetics"]
-                },
-                "Urinary tract infection": {
-                    symptoms: ["burning micturition", "spotting urination", "foul smell of urine", "continuous feel of urine"],
-                    description: "An infection in any part of the urinary system, most commonly affecting the bladder and urethra.",
-                    precautions: ["Drink plenty of water", "Increase vitamin C intake", "Urinate frequently", "Maintain good hygiene"]
-                },
-                "Psoriasis": {
-                    symptoms: ["skin rash", "joint pain", "skin peeling", "silver like dusting", "small dents in nails", "inflammatory nails"],
-                    description: "A skin disease causing red, itchy scaly patches, most commonly on knees, elbows, trunk and scalp.",
-                    precautions: ["Wash hands with warm water", "Stop bleeding if any", "Consult dermatologist", "Use prescribed ointments"]
-                },
-                "Impetigo": {
-                    symptoms: ["skin rash", "high fever", "blister", "red sore around nose", "yellow crust ooze"],
-                    description: "A highly contagious bacterial skin infection causing red sores that can break open and ooze fluid.",
-                    precautions: ["Soak affected area in warm water", "Use antibiotics", "Remove scabs gently", "Consult doctor"]
-                }
-            };
-
-            // Extract all unique symptoms
-            Object.values(diseaseDatabase).forEach(disease => {
-                disease.symptoms.forEach(symptom => {
-                    allSymptoms.add(symptom.toLowerCase());
-                });
-            });
-
-            // Update UI
-            document.getElementById('statusBadge').innerHTML = '<i class="fas fa-check-circle"></i> Database Ready';
-            document.getElementById('statusBadge').style.background = 'rgba(81, 207, 102, 0.3)';
-            document.getElementById('diseaseCount').textContent = Object.keys(diseaseDatabase).length;
-            document.getElementById('symptomCount').textContent = allSymptoms.size;
-            document.getElementById('statsBar').style.display = 'flex';
-            document.getElementById('analyzeBtn').disabled = false;
-
-            console.log(`✓ Loaded ${Object.keys(diseaseDatabase).length} diseases with ${allSymptoms.size} unique symptoms`);
-        }
-
-        // Create animated background particles
-        function createParticles() {
-            const bgAnimation = document.getElementById('bgAnimation');
-            for (let i = 0; i < 20; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-                bgAnimation.appendChild(particle);
-            }
-        }
-
-        // Auto-complete suggestions
-        document.getElementById('symptomInput').addEventListener('input', function(e) {
-            const input = e.target.value.toLowerCase().trim();
-            const suggestionsDiv = document.getElementById('suggestions');
-
-            if (input.length < 2) {
-                suggestionsDiv.style.display = 'none';
-                return;
-            }
-
-            const matches = Array.from(allSymptoms).filter(symptom => 
-                symptom.includes(input) && !userSymptoms.includes(symptom)
-            ).slice(0, 8);
-
-            if (matches.length > 0) {
-                suggestionsDiv.innerHTML = matches.map(symptom => 
-                    `<div class="suggestion-item" onclick="selectSuggestion('${symptom}')">${symptom}</div>`
-                ).join('');
-                suggestionsDiv.style.display = 'block';
-            } else {
-                suggestionsDiv.style.display = 'none';
-            }
-        });
-
-        // Close suggestions when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.input-wrapper')) {
-                document.getElementById('suggestions').style.display = 'none';
-            }
-        });
-
-        // Select suggestion
-        function selectSuggestion(symptom) {
-            document.getElementById('symptomInput').value = symptom;
-            document.getElementById('suggestions').style.display = 'none';
-            addSymptom();
-        }
-
-        // Add symptom
-        function addSymptom() {
-            const input = document.getElementById('symptomInput');
-            const symptom = input.value.trim().toLowerCase();
-            
-            if (symptom && !userSymptoms.includes(symptom)) {
-                userSymptoms.push(symptom);
-                updateSymptomsDisplay();
-                input.value = '';
-                document.getElementById('suggestions').style.display = 'none';
-            }
-        }
-
-        // Remove symptom
-        function removeSymptom(symptom) {
-            userSymptoms = userSymptoms.filter(s => s !== symptom);
-            updateSymptomsDisplay();
-        }
-
-        // Update symptoms display
-        function updateSymptomsDisplay() {
-            const container = document.getElementById('symptomsContainer');
-            container.innerHTML = '';
-            
-            userSymptoms.forEach(symptom => {
-                const chip = document.createElement('div');
-                chip.className = 'symptom-chip';
-                chip.innerHTML = `
-                    <span>${symptom}</span>
-                    <button class="remove-chip" onclick="removeSymptom('${symptom}')">×</button>
-                `;
-                container.appendChild(chip);
-            });
-        }
-
-        // Enter key support
-        document.getElementById('symptomInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                addSymptom();
-            }
-        });
-
-        // Calculate match score with advanced algorithm
-        function calculateMatchScore(userSymps, diseaseSymps) {
-            const userSet = new Set(userSymps.map(s => s.toLowerCase()));
-            const diseaseSet = new Set(diseaseSymps.map(s => s.toLowerCase()));
-            
-            let directMatches = 0;
-            let partialMatches = 0;
-
-            userSet.forEach(userSymp => {
-                if (diseaseSet.has(userSymp)) {
-                    directMatches++;
-                } else {
-                    // Check for partial matches
-                    diseaseSet.forEach(diseaseSymp => {
-                        if (userSymp.includes(diseaseSymp) || diseaseSymp.includes(userSymp)) {
-                            partialMatches += 0.5;
-                        }
-                    });
-                }
-            });
-
-            if (diseaseSet.size === 0) return 0;
-
-            const totalMatch = directMatches + partialMatches;
-            let score = (totalMatch / diseaseSet.size) * 100;
-
-            // Boost for multiple direct matches
-            if (directMatches >= 4) score = Math.min(score * 1.4, 100);
-            else if (directMatches >= 3) score = Math.min(score * 1.3, 100);
-            else if (directMatches >= 2) score = Math.min(score * 1.15, 100);
-
-            // Penalty for very few matches
-            if (directMatches === 0 && partialMatches < 1) score *= 0.5;
-
-            return Math.round(score);
-        }
-
-        // Determine severity based on disease
-        function getSeverity(diseaseName) {
-            const highSeverity = ['heart attack', 'paralysis', 'aids', 'hepatitis', 'tuberculosis', 'pneumonia'];
-            const lowSeverity = ['common cold', 'acne', 'allergy', 'fungal infection'];
-            
-            const nameLower = diseaseName.toLowerCase();
-            if (highSeverity.some(d => nameLower.includes(d))) return 'High';
-            if (lowSeverity.some(d => nameLower.includes(d))) return 'Low';
-            return 'Medium';
-        }
-
-        // Analyze symptoms
-        async function analyzeSymptoms() {
-            if (userSymptoms.length === 0) {
-                alert('⚠️ Please add at least one symptom');
-                return;
-            }
-
-            // Show loading
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('results').style.display = 'none';
-
-            // Simulate processing time for better UX
-            await new Promise(resolve => setTimeout(resolve, 1500));
-
-            // Calculate matches
-            const matches = [];
-            
-            Object.entries(diseaseDatabase).forEach(([disease, info]) => {
-                const score = calculateMatchScore(userSymptoms, info.symptoms);
-                
-                if (score > 15) {
-                    matches.push({
-                        disease: disease,
-                        confidence: score,
-                        description: info.description,
-                        severity: getSeverity(disease),
-                        advice: info.precautions
-                    });
-                }
-            });
-
-            // Sort by confidence
-            matches.sort((a, b) => b.confidence - a.confidence);
-
-            // Get top matches
-            let topMatches = matches.slice(0, 5);
-
-            // If no matches found
-            if (topMatches.length === 0) {
-                topMatches = [{
-                    disease: "Unable to Determine Specific Condition",
-                    confidence: 0,
-                    description: "Your symptoms don't clearly match specific conditions in our database. This could mean your condition is rare, or you may need professional evaluation to identify the cause.",
-                    severity: "Medium",
-                    advice: [
-                        "Schedule an appointment with a healthcare professional",
-                        "Keep a detailed log of all symptoms and when they occur",
-                        "Note any triggers or patterns you notice",
-                        "Monitor for any worsening or new symptoms",
-                        "Don't hesitate to seek emergency care if symptoms become severe"
-                    ]
-                }];
-            }
-
-            // Hide loading
-            document.getElementById('loading').style.display = 'none';
-
-            // Display results
-            displayResults(topMatches);
-        }
-
-        // Display results
-        function displayResults(predictions) {
-            const resultsContainer = document.getElementById('resultsContainer');
-            resultsContainer.innerHTML = '';
-
-            predictions.forEach((pred, index) => {
-                const severityClass = pred.severity === 'High' ? 'severity-high' : 
-                                     pred.severity === 'Medium' ? 'severity-medium' : 'severity-low';
-                
-                const card = document.createElement('div');
-                card.className = 'result-card';
-                card.style.animationDelay = `${index * 0.1}s`;
-                card.innerHTML = `
-                    <div class="result-header">
-                        <div class="disease-name">
-                            ${index === 0 ? ' ' : ''}${pred.disease}
-                        </div>
-                        <div class="confidence">${pred.confidence}% Match</div>
-                    </div>
-                    <div class="severity ${severityClass}">
-                        <i class="fas fa-exclamation-circle"></i> ${pred.severity} Priority
-                    </div>
-                    <div class="description">${pred.description}</div>
-                    <div class="advice-section">
-                        <h4><i class="fas fa-lightbulb"></i> Recommended Actions</h4>
-                        <ul>
-                            ${pred.advice.map(a => `<li>${a}</li>`).join('')}
-                        </ul>
-                    </div>
-                `;
-                resultsContainer.appendChild(card);
-            });
-
-            // Display health centers
-            displayHealthCenters();
-
-            // Show results and scroll
-            document.getElementById('results').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-        }
-
-        // Generate health centers
-        function displayHealthCenters() {
-            const centers = [
-                {
-                    name: "Harare Central Hospital",
-                    address: "Southerton, Harare, Zimbabwe",
-                    phone: "+263 4 251 611",
-                    distance: (Math.random() * 3 + 0.5).toFixed(1)
-                },
-                {
-                    name: "Parirenyatwa Group of Hospitals",
-                    address: "Mazowe Street, Harare",
-                    phone: "+263 4 703 631",
-                    distance: (Math.random() * 4 + 1).toFixed(1)
-                },
-                {
-                    name: "Avenues Clinic",
-                    address: "Baines Avenue, Harare",
-                    phone: "+263 4 252 555",
-                    distance: (Math.random() * 5 + 0.8).toFixed(1)
-                },
-                {
-                    name: "Trauma Centre",
-                    address: "Enterprise Road, Harare",
-                    phone: "+263 4 621 555",
-                    distance: (Math.random() * 6 + 1.5).toFixed(1)
-                },
-                {
-                    name: "Borrowdale Trauma Centre",
-                    address: "Borrowdale Road, Harare",
-                    phone: "+263 4 885 888",
-                    distance: (Math.random() * 7 + 2).toFixed(1)
-                }
-            ];
-
-            // Sort by distance
-            centers.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
-
-            const container = document.getElementById('healthCenters');
-            container.innerHTML = '';
-
-            centers.slice(0, 4).forEach(center => {
-                const card = document.createElement('div');
-                card.className = 'center-card';
-                card.innerHTML = `
-                    <div class="center-name">
-                        <i class="fas fa-hospital"></i> ${center.name}
-                    </div>
-                    <div class="center-info">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>${center.address}</span>
-                    </div>
-                    <div class="center-info">
-                        <i class="fas fa-phone"></i>
-                        <span>${center.phone}</span>
-                    </div>
-                    <div class="center-info">
-                        <i class="fas fa-car"></i>
-                        <span>${center.distance} km away</span>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        // Initialize app on load
-        window.addEventListener('load', function() {
-            createParticles();
-            initializeApp();
-        });
-    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

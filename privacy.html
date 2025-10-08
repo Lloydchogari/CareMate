@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Privacy Policy - CareMate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Read CareMate's privacy policy and learn how we protect your data.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --blue-primary: #0066ff;
+            --blue-secondary: #0052cc;
+            --blue-light: #3385ff;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --success: #00cc66;
+            --warning: #ffaa00;
+            --danger: #ff3333;
+        }
+        [data-theme="light"] {
+            --bg-primary: #f5f5f5;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #000000;
+            --text-secondary: #666666;
+        }
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            margin: 0;
+            transition: background 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 700px;
+            margin: 60px auto 0 auto;
+            padding: 0 20px;
+        }
+        .glass-card {
+            background: var(--bg-card);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,102,255,0.08);
+            padding: 36px 32px;
+            margin-bottom: 32px;
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            animation: fadeInUp 0.7s;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        .section-title {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 18px;
+            color: #0066ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i {
+            color: #0066ff;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #0066ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #003366;
+            text-decoration: underline;
+        }
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 102, 255, 0.3);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            float: right;
+            margin-top: 18px;
+            margin-bottom: 18px;
+        }
+        .theme-toggle:hover {
+            background: var(--blue-primary);
+            border-color: var(--blue-primary);
+            transform: translateY(-2px);
+        }
+        ul {
+            margin-left: 20px;
+        }
+        .policy-section {
+            margin-bottom: 22px;
+        }
+        .policy-section h3 {
+            color: #0066ff;
+            margin-bottom: 10px;
+            font-size: 1.15em;
+        }
+        .policy-section p, .policy-section ul {
+            color: var(--text-secondary);
+            font-size: 1.07em;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <div class="container">
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <i class="fas fa-moon" id="themeIcon"></i>
+            <span id="themeText">Dark</span>
+        </button>
+        <div class="glass-card">
+            <h2 class="section-title"><i class="fas fa-shield-alt"></i> Privacy Policy</h2>
+            <div class="policy-section">
+                <h3>1. Introduction</h3>
+                <p>
+                    Your privacy is important to us. CareMate is committed to protecting your personal information and ensuring transparency about how we use your data.
+                </p>
+            </div>
+            <div class="policy-section">
+                <h3>2. What Information We Collect</h3>
+                <ul>
+                    <li><strong>Symptom Data:</strong> Information you enter about your symptoms.</li>
+                    <li><strong>Usage Data:</strong> Anonymous analytics about how you use CareMate.</li>
+                    <li><strong>Contact Information:</strong> Only if you contact us for support.</li>
+                </ul>
+            </div>
+            <div class="policy-section">
+                <h3>3. How We Use Your Information</h3>
+                <ul>
+                    <li>To provide symptom analysis and health guidance.</li>
+                    <li>To improve our services and user experience.</li>
+                    <li>To respond to your support requests.</li>
+                </ul>
+            </div>
+            <div class="policy-section">
+                <h3>4. Data Protection</h3>
+                <p>
+                    We use industry-standard security measures to protect your data. Your symptom entries are not shared with third parties and are stored securely.
+                </p>
+            </div>
+            <div class="policy-section">
+                <h3>5. Data Retention</h3>
+                <p>
+                    Symptom data is stored only for as long as needed to provide our service. You can clear your history at any time.
+                </p>
+            </div>
+            <div class="policy-section">
+                <h3>6. Your Rights</h3>
+                <ul>
+                    <li>Access, update, or delete your data at any time.</li>
+                    <li>Contact us for any privacy concerns: <a href="mailto:support@caremate.health" style="color:#0066ff;">support@caremate.health</a></li>
+                </ul>
+            </div>
+            <div class="policy-section">
+                <h3>7. Changes to This Policy</h3>
+                <p>
+                    We may update this policy from time to time. Changes will be posted on this page.
+                </p>
+            </div>
+            <div class="policy-section">
+                <h3>8. Contact</h3>
+                <p>
+                    For questions about privacy, email us at <a href="mailto:support@caremate.health" style="color:#0066ff;">support@caremate.health</a>.
+                </p>
+            </div>
+            <p style="margin-top:22px;">
+                <em>CareMate does not provide medical advice. For emergencies, contact your local healthcare provider immediately.</em>
+            </p>
+        </div>
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+    <script>
+        // Theme toggle logic (copy from app.js for consistency)
+        let currentTheme = 'dark';
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.setAttribute('data-theme', savedTheme);
+                currentTheme = savedTheme;
+            }
+            updateThemeButton();
+        }
+        function toggleTheme() {
+            currentTheme = (currentTheme === 'dark') ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', currentTheme);
+            localStorage.setItem('theme', currentTheme);
+            updateThemeButton();
+        }
+        function updateThemeButton() {
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            if (currentTheme === 'dark') {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                themeText.textContent = 'Dark';
+            } else {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                themeText.textContent = 'Light';
+            }
+        }
+        document.addEventListener('DOMContentLoaded', loadTheme);
+    </script>
+</body>
+</html>
