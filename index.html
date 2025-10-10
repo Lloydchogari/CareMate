@@ -11,11 +11,11 @@
     <style>
         :root {
             --bg-primary: #000000;
-            --bg-secondary: #0a0a0a;
+            --bg-secondary: #000000;
             --bg-card: #1a1a1a;
-            --blue-primary: #0066ff;
-            --blue-secondary: #0052cc;
-            --blue-light: #3385ff;
+            --blue-primary: #ff5e00;
+            --blue-secondary: #ff5e00;
+            --blue-light: #575757;
             --text-primary: #ffffff;
             --text-secondary: #b3b3b3;
             --success: #00cc66;
@@ -54,7 +54,7 @@
             height: 100%;
             z-index: 0;
             overflow: hidden;
-            background: radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.08) 0%, transparent 50%),
+            background: radial-gradient(circle at 20% 50%, rgba(107, 107, 107, 0.08) 0%, transparent 50%),
                         radial-gradient(circle at 80% 80%, rgba(0, 102, 255, 0.08) 0%, transparent 50%);
         }
 
@@ -62,7 +62,7 @@
             position: absolute;
             width: 4px;
             height: 4px;
-            background: var(--blue-primary);
+            background: #ff5e00;
             border-radius: 50%;
             opacity: 0.3;
             animation: float 20s infinite;
@@ -86,11 +86,10 @@
         /* Header */
         header {
             background: var(--bg-card);
-            border: 1px solid rgba(0, 102, 255, 0.2);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0, 102, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             animation: slideDown 0.6s ease-out;
         }
 
@@ -122,7 +121,6 @@
             align-items: center;
             justify-content: center;
             font-size: 2em;
-            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
         }
 
         .brand {
@@ -152,7 +150,7 @@
 
         .theme-toggle {
             background: var(--bg-secondary);
-            border: 1px solid rgba(0, 102, 255, 0.3);
+            border: 1px solid rgba(0, 102, 255, 0.2);
             color: var(--text-primary);
             padding: 10px 20px;
             border-radius: 10px;
@@ -197,7 +195,6 @@
         /* Cards */
         .glass-card {
             background: var(--bg-card);
-            border: 1px solid rgba(0, 102, 255, 0.2);
             border-radius: 20px;
             padding: 40px;
             margin-bottom: 30px;
@@ -243,7 +240,7 @@
 
         #symptomInput:focus {
             border-color: var(--blue-primary);
-            box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
+            box-shadow: 0 0 20px rgba(49, 49, 49, 0.3);
         }
 
         .suggestions {
@@ -292,7 +289,7 @@
 
         .add-btn:hover {
             transform: translateY(-50%) scale(1.05);
-            box-shadow: 0 5px 20px rgba(0, 102, 255, 0.4);
+            box-shadow: 0 5px 20px rgba(75, 75, 75, 0.4);
         }
 
         .symptoms-container {
@@ -914,7 +911,7 @@
             <div class="footer-section">
                 <h3>Contact</h3>
                 <p><i class="fas fa-envelope"></i> support@caremate.health</p>
-                <p><i class="fas fa-phone"></i> +263 4 XXX XXXX</p>
+                <p><i class="fas fa-phone"></i> +263 71 142 3970</p>
                 <p><i class="fas fa-map-marker-alt"></i> Harare, Zimbabwe</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
