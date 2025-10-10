@@ -613,39 +613,6 @@ function clearAllSymptoms() {
     showNotification('All symptoms cleared', 'info');
 }
 
-// Export analysis as text
-function exportAnalysis() {
-    if (userSymptoms.length === 0) {
-        showNotification('No symptoms to export', 'warning');
-        return;
-    }
-
-    let exportText = `CareMate Health Analysis Report\n`;
-    exportText += `Generated: ${new Date().toLocaleString()}\n`;
-    exportText += `\n=================================\n\n`;
-    exportText += `SYMPTOMS REPORTED:\n`;
-    userSymptoms.forEach((symptom, i) => {
-        exportText += `${i + 1}. ${symptom}\n`;
-    });
-    exportText += `\n=================================\n\n`;
-    exportText += `DISCLAIMER:\n`;
-    exportText += `This analysis is for informational purposes only.\n`;
-    exportText += `Please consult a healthcare professional for proper diagnosis.\n\n`;
-
-    // Create download link
-    const blob = new Blob([exportText], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `caremate-analysis-${Date.now()}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-
-    showNotification('Analysis exported successfully', 'success');
-}
-
 // Keyboard shortcuts
 document.addEventListener('keydown', function(e) {
     // Ctrl/Cmd + K to focus search
@@ -686,20 +653,7 @@ window.addEventListener('load', function() {
         " onmouseover="this.style.borderColor='var(--blue-primary)'" onmouseout="this.style.borderColor='rgba(0, 102, 255, 0.3)'">
             <i class="fas fa-trash-alt"></i> Clear All
         </button>
-        <button onclick="exportAnalysis()" style="
-            background: var(--bg-secondary);
-            border: 1px solid rgba(0, 102, 255, 0.3);
-            color: var(--text-primary);
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        " onmouseover="this.style.borderColor='var(--blue-primary)'" onmouseout="this.style.borderColor='rgba(0, 102, 255, 0.3)'">
-            <i class="fas fa-download"></i> Export
-        </button>
+        
     `;
     
     const analyzeBtn = document.getElementById('analyzeBtn');
@@ -847,186 +801,6 @@ window.addEventListener('load', function() {
 console.log('✓ CareMate Application Ready');
 console.log('💙 Your health companion is here to help!');
 
-// ========================================
-// CHATBOT FUNCTIONALITY
-// ========================================
-
-// Health knowledge base for chatbot responses
-const healthKnowledgeBase = {
-    greetings: ['hello', 'hi', 'hey', 'greetings', 'good morning', 'good afternoon', 'good evening'],
-    fever: {
-        keywords: ['fever', 'temperature', 'hot', 'burning up'],
-        response: `Fever is your body's natural response to infection or illness. Here's what you should know:
-
-• Normal body temperature: 36.5-37.5°C (97.7-99.5°F)
-• Mild fever: 37.5-38.3°C (99.5-100.9°F)
-• Moderate fever: 38.3-39.4°C (100.9-102.9°F)
-• High fever: Above 39.4°C (102.9°F)
-
-**What to do:**
-- Stay hydrated
-- Rest adequately
-- Take fever-reducing medication (paracetamol/ibuprofen)
-- Use cool compresses
-- Seek medical help if fever persists beyond 3 days or exceeds 39.4°C`
-    },
-    headache: {
-        keywords: ['headache', 'head pain', 'migraine', 'head hurts'],
-        response: `Headaches can have various causes. Common types include:
-
-**Tension Headaches:**
-- Dull, aching pain
-- Feels like tight band around head
-- Often stress-related
-
-**Migraines:**
-- Intense throbbing pain
-- Often one-sided
-- May include nausea, light sensitivity
-
-**Relief tips:**
-- Rest in quiet, dark room
-- Apply cold/warm compress
-- Stay hydrated
-- Manage stress
-- OTC pain relievers
-
-⚠️ Seek immediate help if headache is sudden, severe, or accompanied by confusion, vision changes, or stiff neck.`
-    },
-    cold: {
-        keywords: ['cold', 'cough', 'runny nose', 'sneezing', 'congestion'],
-        response: `Common cold is a viral infection of the upper respiratory tract.
-
-**Symptoms:**
-- Runny or stuffy nose
-- Sore throat
-- Cough
-- Sneezing
-- Mild fever
-
-**Treatment:**
-- Rest (7-10 days to recover)
-- Drink plenty of fluids
-- Gargle with warm salt water
-- Use saline nasal drops
-- Honey for cough relief
-- OTC cold medications
-
-**Prevention:**
-- Wash hands frequently
-- Avoid close contact with sick people
-- Don't touch face with unwashed hands`
-    },
-    pain: {
-        keywords: ['pain', 'ache', 'hurt', 'painful', 'sore'],
-        response: `Pain management depends on the type and location. General guidelines:
-
-**Acute Pain Relief:**
-- Rest the affected area
-- Ice packs (first 48 hours)
-- Heat therapy (after 48 hours)
-- OTC pain relievers
-- Gentle stretching
-
-**When to seek help:**
-- Severe or worsening pain
-- Pain after injury
-- Pain with fever
-- Pain lasting more than a week
-- Pain affecting daily activities
-
-Would you like specific information about pain in a particular area?`
-    },
-    stomach: {
-        keywords: ['stomach', 'belly', 'abdomen', 'tummy', 'nausea', 'vomiting', 'diarrhea'],
-        response: `Stomach issues can range from mild to serious.
-
-**Common causes:**
-- Food poisoning
-- Viral gastroenteritis
-- Indigestion
-- Stress
-- Food intolerance
-
-**Self-care:**
-- Clear liquids (water, broth)
-- BRAT diet (Bananas, Rice, Applesauce, Toast)
-- Avoid dairy, fatty, spicy foods
-- Small, frequent meals
-- Rest
-
-**Seek medical help if:**
-- Severe abdominal pain
-- Persistent vomiting
-- Blood in stool or vomit
-- Signs of dehydration
-- Symptoms lasting more than 2 days`
-    },
-    medication: {
-        keywords: ['medicine', 'medication', 'drug', 'prescription', 'pills'],
-        response: `Medication safety tips:
-
-**General Guidelines:**
-- Take as prescribed by your doctor
-- Complete full course of antibiotics
-- Don't share medications
-- Check expiry dates
-- Store properly
-
-**Common OTC Medications:**
-- Paracetamol: Pain & fever (max 4g/day)
-- Ibuprofen: Pain & inflammation (with food)
-- Antihistamines: Allergies
-- Antacids: Heartburn
-
-⚠️ Always consult a healthcare provider before starting new medications, especially if you're pregnant, nursing, or have chronic conditions.`
-    },
-    emergency: {
-        keywords: ['emergency', 'urgent', 'serious', 'severe', '911', '999', 'ambulance'],
-        response: `🚨 EMERGENCY SITUATIONS - Call 999 immediately if experiencing:
-
-- Chest pain or pressure
-- Difficulty breathing
-- Severe bleeding
-- Loss of consciousness
-- Stroke symptoms (face drooping, arm weakness, speech difficulty)
-- Severe allergic reaction
-- Suspected poisoning
-- Severe burns
-- Head injury with confusion
-
-**While waiting for help:**
-- Stay calm
-- Don't move if injured
-- Apply pressure to bleeding wounds
-- Begin CPR if trained and needed
-- Note time symptoms started`
-    },
-    prevention: {
-        keywords: ['prevent', 'prevention', 'avoid', 'healthy', 'wellness'],
-        response: `Health prevention strategies:
-
-**Daily Habits:**
-- Balanced diet (fruits, vegetables, whole grains)
-- Regular exercise (30 min, 5 days/week)
-- 7-9 hours sleep
-- Stay hydrated (2-3 liters water/day)
-- Stress management
-
-**Medical Care:**
-- Regular check-ups
-- Vaccinations up-to-date
-- Dental check-ups (6 months)
-- Eye exams (yearly)
-- Cancer screenings (as recommended)
-
-**Hygiene:**
-- Wash hands frequently
-- Cover coughs/sneezes
-- Safe food handling
-- Clean living environment`
-    }
-};
 
 // Send chat message
 function sendChatMessage() {
@@ -1075,82 +849,10 @@ function addMessageToChat(message, sender) {
     chatHistory.push({ sender, message, timestamp: new Date() });
 }
 
-// Generate chatbot response
-function generateChatResponse(userMessage) {
-    const msgLower = userMessage.toLowerCase();
     
-    // Check for greetings
-    if (healthKnowledgeBase.greetings.some(g => msgLower.includes(g))) {
-        return `Hello! 👋 I'm here to help with your health questions. You can ask me about:\n\n- Symptoms (fever, headache, cough, etc.)\n- First aid tips\n- Medication information\n- Prevention strategies\n- When to seek medical help\n\nWhat would you like to know?`;
-    }
-    
-    // Check knowledge base
-    for (const [topic, data] of Object.entries(healthKnowledgeBase)) {
-        if (topic === 'greetings') continue;
-        
-        if (data.keywords && data.keywords.some(keyword => msgLower.includes(keyword))) {
-            return data.response;
-        }
-    }
-    
-    // Check if asking about symptoms in database
-    for (const symptom of allSymptoms) {
-        if (msgLower.includes(symptom)) {
-            const relatedDiseases = [];
-            Object.entries(diseaseDatabase).forEach(([disease, info]) => {
-                if (info.symptoms.includes(symptom)) {
-                    relatedDiseases.push(disease);
-                }
-            });
-            
-            if (relatedDiseases.length > 0) {
-                return `The symptom "${symptom}" can be associated with:\n\n${relatedDiseases.slice(0, 5).map((d, i) => `${i + 1}. ${d}`).join('\n')}\n\nWould you like to add this symptom to the analyzer above for a detailed assessment?`;
-            }
-        }
-    }
-    
-    // Default response with external resources
-    return `I don't have specific information about that in my current knowledge base. However, I can help you find reliable information:\n\n<div class="external-links"><a href="${medicalResources.mayoclinic}${encodeURIComponent(userMessage)}" target="_blank" class="external-link"><i class="fas fa-external-link-alt"></i> Mayo Clinic</a><a href="${medicalResources.webmd}${encodeURIComponent(userMessage)}" target="_blank" class="external-link"><i class="fas fa-external-link-alt"></i> WebMD</a><a href="${medicalResources.healthline}${encodeURIComponent(userMessage)}" target="_blank" class="external-link"><i class="fas fa-external-link-alt"></i> Healthline</a></div>\n\nYou can also try asking about:\n- Common symptoms (fever, headache, cough)\n- Medication guidance\n- Prevention tips\n- When to seek emergency help`;
-}
+ 
 
-// Typing indicator
-function showTypingIndicator() {
-    const messagesDiv = document.getElementById('chatMessages');
-    const indicator = document.createElement('div');
-    indicator.className = 'bot-message';
-    indicator.id = 'typingIndicator';
-    indicator.innerHTML = `
-        <div class="message-avatar">
-            <i class="fas fa-robot"></i>
-        </div>
-        <div class="message-content">
-            <div class="typing-indicator">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    `;
-    messagesDiv.appendChild(indicator);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
 
-function removeTypingIndicator() {
-    const indicator = document.getElementById('typingIndicator');
-    if (indicator) indicator.remove();
-}
-
-// Enter key for chat
-document.addEventListener('DOMContentLoaded', function() {
-    const chatInput = document.getElementById('chatInput');
-    if (chatInput) {
-        chatInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendChatMessage();
-            }
-        });
-    }
-});
 
 //Health-Tip    
 const healthTips = [
@@ -1189,25 +891,3 @@ document.addEventListener('DOMContentLoaded', function() {
 // Call this on page load
 document.addEventListener('DOMContentLoaded', showHealthTip);
 
-//Response to the Feedback message
-let userRating = 0;
-
-function setRating(rating) {
-    userRating = rating;
-    const stars = document.querySelectorAll('#ratingStars i');
-    stars.forEach((star, idx) => {
-        star.style.color = idx < rating ? '#ffaa00' : '#ccc';
-    });
-}
-
-function submitFeedback() {
-    const feedback = document.getElementById('feedbackText').value;
-    if (userRating === 0 && feedback.trim() === "") {
-        alert("Please rate or provide feedback.");
-        return;
-    }
-    // Here you would send feedback to your server or store it
-    alert("Thank you for your feedback!");
-    document.getElementById('feedbackText').value = "";
-    setRating(0);
-}

@@ -891,65 +891,7 @@
             <p id="healthTipText" style="font-size:1.1em; color:var(--text-secondary);"></p>
         </div>
 
-        <!-- Health Chatbot Section -->
-        <div class="glass-card" id="chatbotSection">
-            <h2 class="section-title">
-                <i class="fas fa-comments"></i>
-                Health Assistant Chat
-            </h2>
-            <div class="chat-container" id="chatContainer">
-                <div class="chat-messages" id="chatMessages">
-                    <div class="bot-message">
-                        <div class="message-avatar">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <div class="message-content">
-                            <p>👋 Hello! I'm your CareMate Health Assistant. I can help you with:</p>
-                            <ul style="margin: 10px 0; padding-left: 20px;">
-                                <li>Understanding health symptoms</li>
-                                <li>General health information</li>
-                                <li>Medication guidance</li>
-                                <li>Wellness tips</li>
-                            </ul>
-                            <p>How can I assist you today?</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-input-wrapper">
-                    <input 
-                        type="text" 
-                        id="chatInput" 
-                        placeholder="Ask a health question..."
-                        autocomplete="off"
-                    >
-                    <button class="chat-send-btn" onclick="sendChatMessage()">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Place above the disclaimer in index.html -->
-            <div class="glass-card" id="feedbackSection" style="margin-bottom: 30px;">
-                <h2 class="section-title">
-                    <i class="fas fa-star"></i>
-                    Rate Your Experience
-                </h2>
-                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-                    <span>How would you rate CareMate?</span>
-                    <span id="ratingStars">
-                        <i class="fas fa-star" onclick="setRating(1)"></i>
-                        <i class="fas fa-star" onclick="setRating(2)"></i>
-                        <i class="fas fa-star" onclick="setRating(3)"></i>
-                        <i class="fas fa-star" onclick="setRating(4)"></i>
-                        <i class="fas fa-star" onclick="setRating(5)"></i>
-                    </span>
-                </div>
-                <textarea id="feedbackText" rows="3" style="width:100%; border-radius:8px; padding:10px;" placeholder="Share your feedback..."></textarea>
-                <button class="add-btn" style="margin-top:10px;" onclick="submitFeedback()">Submit</button>
-            </div>
-
+       
         <div class="disclaimer">
             <i class="fas fa-exclamation-triangle"></i>
             <p><strong>Medical Disclaimer:</strong> CareMate provides general health information only and should not replace professional medical advice. Always consult with a qualified healthcare provider for accurate diagnosis and treatment. In case of emergency, call your local emergency services immediately.</p>
